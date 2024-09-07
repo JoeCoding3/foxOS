@@ -1,0 +1,211 @@
+<!doctype html>
+<style>
+	* {
+		outline: none;
+		user-select: none;
+	}
+	body {
+		background-color: black;
+		color: lightgray;
+	}
+	button {
+		background-color: lightgray;
+	}
+	textarea {
+		resize: none;
+		background-color: black;
+		color: lightgray;
+		font-family: monospace;
+		font-size: 14px;
+		border: none;
+		overflow: hidden;
+		cursor: pointer;
+	}
+	button, textarea {
+		border-radius: 5px;
+	}
+	button:not([disabled]) {
+		cursor: pointer;
+	}
+	div, textarea {
+		display: inline-block;
+		white-space: pre;
+	}
+	#hexAreas, #textAreas {
+		position: absolute;
+		top: 30px;
+	}
+	#hexAreas {
+		left: 10px;
+	}
+	#textAreas {
+		left: 270px;
+	}
+	textarea {
+		height: 20px;
+	}
+	textarea.hexArea {
+		width: 20px;
+	}
+	textarea.textArea {
+		width: 9px;
+	}
+</style>
+<button onclick="openFile()" autofocus>Open file</button>
+<button id="saveBtn" onclick="saveFile()" disabled>Save file</button>
+<div id="currentFile"></div>
+<div id="hexAreas"></div>
+<div id="textAreas"></div>
+<script src="../libs/fileutil.js"></script>
+<script>
+	let file
+	let array
+	let hexAreasList
+	let textAreasList
+    onload = async function () {
+        let storedHandle = await fileutil.file.storage.get("filesys_opentemp")
+        if (storedHandle != undefined) {
+            openFile(storedHandle)
+            await fileutil.file.storage.remove("filesys_opentemp")
+        }
+    }
+	async function openFile (inFile) {
+		if (inFile) file = inFile
+		else [file] = await fileutil.file.get()
+		currentFile.innerText = file.data.name
+		let buffer = await file.read("buffer")
+		array = new Uint8Array(buffer)
+		hexAreas.innerHTML = ""
+		textAreas.innerHTML = ""
+		for (let index in array) {
+			let num = array[index]
+			let hex = num.toString(16).padStart(2, 0).toUpperCase()
+			if (index % 10 == 0) {
+				let hBr = document.createElement("br")
+				let tBr = document.createElement("br")
+				hexAreas.append(hBr)
+				textAreas.append(tBr)
+			}
+			let hArea = document.createElement("textarea")
+			hArea.className = "hexArea"
+			hArea.dataset.index = index
+			hArea.onkeydown = updateHexArea
+			hArea.onclick = selectStart
+			hArea.innerText = hex
+			hexAreas.append(hArea)
+			let tArea = document.createElement("textarea")
+			tArea.className = "textArea"
+			tArea.dataset.index = index
+			tArea.onkeydown = updateTextArea
+			tArea.onclick = selectStart
+			tArea.innerText = num > 31 ? String.fromCharCode(num) : "."
+			textAreas.append(tArea)
+		}
+		hexAreasList = document.getElementsByClassName("hexArea")
+		textAreasList = document.getElementsByClassName("textArea")
+	}
+	async function saveFile () {
+		saveBtn.disabled = true
+		await file.write(array)
+	}
+
+	function selectStart () {
+		if (this.selectionEnd == this.value.length) this.selectionEnd = 0
+		if (this.selectionStart != this.selectionEnd) this.selectionStart = this.selectionEnd
+	}
+	function handleInput (ev, type) {
+		ev.preventDefault()
+		if (ev.key.length != 1) {
+			if (ev.key == "Backspace") {
+				array = array.slice(0, array.length - 1)
+				hexAreasList[hexAreasList.length - 1].remove()
+				textAreasList[textAreasList.length - 1].remove()
+				this.blur()
+			}
+			return 1
+		}
+		if (ev.key == " ") {
+			if (textAreasList.length % 10 == 0) {
+				let hBr = document.createElement("br")
+				let tBr = document.createElement("br")
+				hexAreas.append(hBr)
+				textAreas.append(tBr)
+			}
+			let hArea = document.createElement("textarea")
+			hArea.className = "hexArea"
+			hArea.dataset.index = hexAreasList.length
+			hArea.onkeydown = updateHexArea
+			hArea.onclick = selectStart
+			hArea.innerText = "00"
+			hexAreas.append(hArea)
+			let tArea = document.createElement("textarea")
+			tArea.className = "textArea"
+			tArea.dataset.index = textAreasList.length
+			tArea.onkeydown = updateTextArea
+			tArea.onclick = selectStart
+			tArea.innerText = "."
+			textAreas.append(tArea)
+			if (type == 1) hArea.focus()
+			else if (type == 2) tArea.focus()
+			let newArray = new Uint8Array(array.length + 1)
+			newArray.set(array)
+			newArray[array.length] = 0
+			array = newArray
+			return 1
+		}
+	}
+
+	function updateAllHex () {
+		for (let index in hexAreasList) {
+			if (isNaN(index)) continue
+			let hexArea = hexAreasList[index]
+			hexArea.value = array[index].toString(16).padStart(2, 0).toUpperCase()
+		}
+	}
+	function updateAllText () {
+		for (let index in textAreasList) {
+			if (isNaN(index)) continue
+			let textArea = textAreasList[index]
+			let num = array[index]
+			textArea.value = num > 31 ? String.fromCharCode(num) : "."
+		}
+	}
+
+	function updateTextArea (ev) {
+		saveBtn.disabled = false
+		let result = handleInput.call(this, ev, 2)
+		if (result != undefined) return
+		let val = ev.key
+		this.value = val
+		array[this.dataset.index] = val.charCodeAt(0)
+		this.blur()
+		updateAllHex()
+	}
+	function updateHexArea (ev) {
+		saveBtn.disabled = false
+		let result = handleInput.call(this, ev, 1)
+		if (result != undefined) return
+		let val = ev.key.toUpperCase()
+		if (this.selectionEnd == 0) {
+			this.value = val + this.value.substring(1)
+			this.selectionStart = 1
+			this.selectionEnd = 1
+		} else if (this.selectionEnd == 1) {
+			this.value = this.value.substring(0, 1) + val
+			this.blur()
+		}
+		array[this.dataset.index] = parseInt(this.value, 16)
+		updateAllText()
+	}
+	
+    onkeydown = function (ev) {
+        if (ev.shiftKey || ev.altKey || ev.metaKey || !ev.ctrlKey) return
+		if (ev.key == "s") {
+			ev.preventDefault()
+			saveBtn.click()
+		} else if (ev.key == "o") {
+			ev.preventDefault()
+			openFile()
+		}
+    }
+</script>

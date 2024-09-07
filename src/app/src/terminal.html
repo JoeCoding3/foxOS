@@ -1,0 +1,111 @@
+<!doctype html>
+<style>
+    body {
+        background-color: black;
+    }
+    textarea {
+        background-color: black;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        padding: 0px;
+        border: none;
+        color: orange;
+        font-family: monospace;
+        font-size: 14px;
+        resize: none;
+        outline: none;
+        z-index: 0;
+        cursor: none;
+    }
+    ::selection {
+        background-color: gray;
+    }
+</style>
+<textarea id="textarea" spellcheck="false" autofocus></textarea>
+<script src="../libs/fileutil.js"></script>
+<script>
+    var inp = " > "
+    var out = " < "
+    var commands = []
+    var command = 0
+    var last
+    var num
+	textarea.focus()
+    var asyncf = async function () {}.constructor
+	function clear () {
+		setTimeout(() => textarea.value = inp)
+	}
+	clear()
+    textarea.onkeydown = async function (ev) {
+        var line = textarea.value.lastIndexOf("\n") || 0
+        var value = textarea.value.substring(line + 4)
+        if ((ev.key == "Backspace" || ev.key == "ArrowLeft") && textarea.selectionStart <= line + 4) ev.preventDefault()
+        else if (ev.key == "Enter") {
+            ev.preventDefault()
+            if(num != null) {
+                command = num
+                num = null
+            }
+			let origValue = value
+			value = value.replaceAll("var ", "")
+			value = value.replaceAll("let ", "")
+			value = value.replaceAll("const ", "")
+            try {
+                var result = await new asyncf("return (" + value + ")").call()
+            } catch (err) {
+                var result = err
+            }
+            try {
+                print(result)
+            } catch (err) {
+                print("An error occured while executing that command.")
+            }
+            commands.push(origValue)
+            command++
+        } else if (ev.key == "ArrowUp") {
+            ev.preventDefault()
+            if (last == null) last = value
+            if(num == null) num = command
+            getHistory(1)
+        } else if (ev.key == "ArrowDown") {
+            ev.preventDefault()
+            getHistory(2)
+        } else if (ev.key == "a" && ev.ctrlKey) {
+            ev.preventDefault()
+            textarea.selectionStart = line + 4
+            textarea.selectionEnd = textarea.value.length
+        }
+    }
+    textarea.onmousedown = textarea.oncontextmenu = ev => ev.preventDefault()
+    function getHistory (type) {
+        if (type == 1) command--
+        else command++
+        var check = commands[command]
+        if (check == null) {
+            if (type == 1) {
+                command++
+                return
+            } else {
+                if(last != null) check = last
+                else {
+                    command--
+                    return
+                }
+                last = null
+            }
+        }
+        var line = textarea.value.lastIndexOf("\n") || 0
+        textarea.value = textarea.value.substring(0, line + 4) + check
+    }
+    function print(message) {
+        textarea.value += "\n" + out + message + "\n" + inp
+		textarea.scrollTo({
+			top: textarea.scrollHeight,
+			left: 0,
+			behavior: "instant"
+		})
+    }
+</script>

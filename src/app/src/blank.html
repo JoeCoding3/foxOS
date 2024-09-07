@@ -1,0 +1,30 @@
+<!doctype html>
+<style>
+    body {
+        background-color: black;
+        color: lightgray;
+    }
+    input {
+        background-color: lightgray;
+        border-radius: 5px;
+        outline: none;
+    }
+</style>
+<input id="input" spellcheck="false" placeholder="URL/file" autofocus>
+<script>
+	input.focus()
+    input.onkeydown = function(ev) {
+        if(ev.key == "Enter") {
+			let value = input.value
+			if (!value.startsWith(".") && !value.startsWith("http")) value = "https://" + value
+            if (ev.shiftKey) open(value, "_blank", "popup,width=" + screen.width + ",height=" + screen.height)
+            else open(undefined, "_blank", "popup,width=" + screen.width + ",height=" + screen.height)
+                .document.write("<iframe style='width: 100%; height: 100%; position: absolute; left: 0px; top: 0px;' frameborder='0' src='" + value + "'></iframe>")
+            input.value = ""
+            setTimeout(function() {
+                parent.close()
+            })
+        }
+    }
+    input.onblur = input.focus
+</script>

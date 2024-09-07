@@ -1,0 +1,100 @@
+<!doctype html>
+<style>
+    * {
+        outline: none;
+        user-select: none;
+    }
+    body {
+        background-color: black;
+        color: lightgray;
+    }
+
+    button {
+        background-color: lightgray;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    div {
+        display: inline-block;
+    }
+    #tools {
+        background-color: gray;
+        border-radius: 5px;
+    }
+    #currentFile {
+        padding-right: 3px;
+    }
+    img {
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: -1;
+    }
+</style>
+
+<div id="tools">
+    <button onclick="openFile()">Open file</button>
+    <div id="currentFile"></div>
+</div>
+<br><img id="img">
+
+<script src="../libs/fileutil.js"></script>
+<script>
+    let file
+    let mouseX = 0
+    let mouseY = 0
+    let imgScale = 1
+    onload = async function () {
+        let storedHandle = await fileutil.file.storage.get("filesys_opentemp")
+        if (storedHandle != undefined) {
+            openFile(storedHandle)
+            await fileutil.file.storage.remove("filesys_opentemp")
+        }
+    }
+    async function openFile (inFile) {
+        if (inFile) file = inFile
+        else [file] = await fileutil.file.get()
+
+        currentFile.innerText = file.data.name
+        let fileObj = await file.data.handle.getFile()
+        let url = URL.createObjectURL(fileObj)
+        img.src = url
+    }
+
+    onmousemove = onmousedown = function (ev) {
+        mouseX = ev.x
+        mouseY = ev.y
+    }
+    img.addEventListener("wheel", function (ev) {
+        if (file != undefined) {
+            ev.preventDefault()
+            if (ev.altKey) {
+                let rect = img.getBoundingClientRect()
+                let offsetX = -rect.left + mouseX
+                let offsetY = -rect.top + mouseY
+                
+                let newScale = imgScale
+                if (ev.deltaY < 0) newScale = imgScale += 0.1
+                else newScale = imgScale -= 0.1
+                if (newScale <= 0.2) return
+
+                let originX = (offsetX / rect.width) * 100
+                let originY = (offsetY / rect.height) * 100
+
+                img.style.transformOrigin = `${originX}% ${originY}%`
+                img.style.transform = `scale(${newScale})`
+            } else if (ev.ctrlKey) {
+                if (ev.deltaY < 0) adjustStyle(img, "left", 30)
+                else adjustStyle(img, "left", -30)
+            } else if (ev.shiftKey) {
+            } else if (ev.metaKey) {
+            } else {
+                if (ev.deltaY < 0) adjustStyle(img, "top", 30)
+                else adjustStyle(img, "top", -30)
+            }
+        }
+    }, {passive: false})
+    function adjustStyle (elem, prop, addVal) {
+        elem.style[prop] = `${parseInt(getComputedStyle(elem)[prop]) + addVal}px`
+    }
+</script>

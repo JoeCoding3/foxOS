@@ -1,0 +1,120 @@
+<!doctype html>
+<style>
+    * {
+        outline: none;
+        user-select: none;
+    }
+    body {
+        background-color: black;
+        color: lightgray;
+    }
+    button, textarea {
+        background-color: lightgray;
+        border-radius: 5px;
+    }
+    button:not([disabled]) {
+        cursor: pointer;
+    }
+    textarea {
+        width: 500px;
+        height: 500px;
+        display: none;
+    }
+    div {
+        display: inline-block;
+    }
+</style>
+<button onclick="openFile()">Open file</button>
+<button id="saveBtn" onclick="saveFile()" disabled>Save file</button>
+<button onclick="createFile()">Create file</button>
+<div id="currentFile"></div>
+<br><textarea id="textarea" spellcheck="false"></textarea>
+<script src="../libs/fileutil.js"></script>
+<script>
+    let file
+    let saveState = ""
+    onload = async function () {
+        let storedHandle = await fileutil.file.storage.get("filesys_opentemp")
+        if (storedHandle != undefined) {
+            openFile(storedHandle)
+            await fileutil.file.storage.remove("filesys_opentemp")
+        }
+    }
+    async function createFile () {
+        file = await fileutil.file.download.handle("file.txt")
+        currentFile.innerText = file.data.name
+        textarea.value = ""
+        textarea.style.display = "block"
+    }
+    async function openFile (inFile) {
+        if (inFile) file = inFile
+        else [file] = await fileutil.file.get()
+        currentFile.innerText = file.data.name
+        let text = await file.read()
+        textarea.value = text
+        saveState = textarea.value
+        textarea.style.display = "block"
+    }
+    async function saveFile () {
+		saveBtn.disabled = true
+        let text = textarea.value
+        await file.write(text)
+        saveState = text
+    }
+
+	textarea.onkeydown = function (ev) {
+        if (!(ev.ctrlKey && ev.key == "s")) setTimeout(() => saveBtn.disabled = textarea.value == saveState)
+        if (ev.shiftKey || ev.altKey || ev.metaKey) return
+        if (ev.ctrlKey) {
+            if (ev.key == "s") {
+                ev.preventDefault()
+                saveBtn.click()
+            }
+            return
+        }
+        if (ev.key == "Tab") {
+            ev.preventDefault()
+            insertText("    ")
+        }
+        if (ev.key == "Backspace") {
+            let pos = textarea.selectionStart - 1
+            if (pos == textarea.selectionEnd - 1) {
+                let spaces = true
+                for (let p = 0; p > -3; p--) {
+                    let q = pos + p
+                    let char = textarea.value.substring(q, q + 1)
+                    if (char != " ") {
+                        spaces = false
+                        break
+                    }
+                }
+
+                if (spaces) {
+                    document.execCommand("delete")
+                    document.execCommand("delete")
+                    document.execCommand("delete")
+                }
+            }
+        }
+        if (ev.key == "Enter") {
+            let value = textarea.value
+            let start = textarea.selectionStart
+
+            let newlinePos = value.substring(0, start).lastIndexOf("\n") + 1
+            let lineEnd = value.indexOf("\n", newlinePos)
+            if (lineEnd == -1) lineEnd = value.length
+            let lineText = value.substring(newlinePos, lineEnd)
+            let spaces = lineText.search(/[^ ]/g)
+            if (spaces == -1) spaces = lineText.length
+            
+            setTimeout(function (spaces) {
+                let spaceStr = " ".repeat(spaces)
+                insertText(spaceStr)
+            }, 0, spaces)
+        }
+    }
+
+    function insertText (text) {
+        document.execCommand("insertText", false, text)
+    }
+</script>
