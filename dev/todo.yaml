@@ -1,7 +1,2 @@
-fix broken apps (were meant to be built into beaveros):
-    apps:
-        camera: unfinished, can't test on pc (no camera)
-        imgedit: unfinished
-
 create builder (like beaveros?)
-try on chromebook
+try running on chromebook
