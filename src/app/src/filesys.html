@@ -144,15 +144,15 @@
             row.onclick = async function () {
                 let name = this.data.name
                 if (name.endsWith(".html")) {
-                    let content = await this.read() + "<script>onunload = function () { close() }; setTimeout(() => dispatchEvent(new Event(`load`)), 100)<\\/script>"
-                    let win = open(undefined, "_blank", "popup,left=0,top=0,width=" + screen.width + ",height=" + screen.height)
+                    let content = `${await this.read()}<script>onunload = function () { close() }; setTimeout(() => dispatchEvent(new Event("load")), 100)<\\/script>`
+                    let win = open(undefined, "_blank", `popup,left=0,top=0,width=${screen.width},height=${screen.height}`)
                     win.document.write(content)
-                        
-                    return
-                } else await this.store("filesys_opentemp")
-                if (name.endsWith(".txt") || name.endsWith(".js") || name.endsWith(".css") || name.endsWith(".trashinfo")) open("./textedit.html")
-                else if (name.endsWith(".png") || name.endsWith(".jpg") || name.endsWith(".jpeg")) open("./imgedit.html")
-                else open("./hexedit.html")
+                } else {
+                    await this.store("fxos_filesys_opentemp")
+                    if (name.endsWith(".txt") || name.endsWith(".js") || name.endsWith(".css") || name.endsWith(".trashinfo")) open("./textedit.html")
+                    else if (name.endsWith(".png") || name.endsWith(".jpg") || name.endsWith(".jpeg")) open("./imgedit.html")
+                    else open("./hexedit.html")
+                }
             }.bind(opt.obj)
             row.onmousedown = async function (ev) {
                 if (ev.button != 1 || !confirm("Delete file '" + this.obj.data.name + "'?")) return

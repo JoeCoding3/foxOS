@@ -46,10 +46,10 @@
     let mouseY = 0
     let imgScale = 1
     onload = async function () {
-        let storedHandle = await fileutil.file.storage.get("filesys_opentemp")
+        let storedHandle = await fileutil.file.storage.get("fxos_filesys_opentemp")
         if (storedHandle != undefined) {
             openFile(storedHandle)
-            await fileutil.file.storage.remove("filesys_opentemp")
+            await fileutil.file.storage.remove("fxos_filesys_opentemp")
         }
     }
     async function openFile (inFile) {
