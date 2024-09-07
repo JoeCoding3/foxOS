@@ -27,14 +27,14 @@ function registerAllApps () {
     registerApp("hexedit",      1,  3, false, false, "")
     
     registerApp("camera",       0,  4, true,  false, "")
-    registerApp("imgedit",      1,  4, true,  false, "")
+    registerApp("imgedit",      1,  4, false, false, "")
     
     registerApp("mc",           0,  5, true,  true,  "")
     registerApp("dino",         1,  5, true,  true,  "")
 
     
     registerApp("clock",       -1,  0, true,  false, "")
-    registerApp("filesys",     -1,  1, true,  false, "")
+    registerApp("filesys",     -1,  1, false, false, "")
     registerApp("screensaver", -1,  2, true,  false, "")
 
     

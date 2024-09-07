@@ -243,8 +243,8 @@ let fileutil = {
                     },
                     folder: async function (name, overwrite = false) {
                         if (!overwrite) {
-                            let file = await obj.get.file(name)
-                            if (file != null) return null
+                            let folder = await obj.get.folder(name)
+                            if (folder != null) return null
                         }
 
                         let handle = await obj.data.handle.getDirectoryHandle(name, {
@@ -282,7 +282,7 @@ let fileutil = {
                 let handle = await getIdb("folder_" + id)
                 if (handle) return await fileutil.folder.get(null, handle)
             },
-            reset: async function (id) {
+            remove: async function (id) {
                 await delIdb("folder_" + id)
             },
             list: async function () {

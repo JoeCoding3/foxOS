@@ -33,12 +33,13 @@
 </style>
 
 <div id="tools">
-    <button onclick="openFile()">Open file</button>
+    <button onclick="openFile()" autofocus>Open file</button>
     <div id="currentFile"></div>
 </div>
 <br><img id="img">
 
-<script src="../libs/fileutil.js"></script>
+<script src="../../js/lib/idb.js"></script>
+<script src="../../js/lib/fileutil.js"></script>
 <script>
     let file
     let mouseX = 0
