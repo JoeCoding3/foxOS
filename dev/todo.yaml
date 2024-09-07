@@ -1,4 +1,4 @@
 create builder (like beaveros?)
 try running on chromebook
 
-fix idb names (rename from bvos to fxos and add fxos where needed)
+fix idb names (rename from bvos to fxos and add fxos where needed), remove old values from idb in devtools
