@@ -29,7 +29,7 @@ function registerAllApps () {
     registerApp("camera",       0,  4, true,  false, "")
     registerApp("imgedit",      1,  4, false, false, "")
     
-    registerApp("mc",           0,  5, true,  true,  "")
+    registerApp("mc",           0,  5, false, true,  "")
     registerApp("dino",         1,  5, true,  true,  "")
 
     
