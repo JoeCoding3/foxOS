@@ -1,0 +1,43 @@
+<!doctype html>
+<style>
+    body {
+        background-color: black;
+        color: lightgray;
+        font-size: 20px;
+    }
+</style>
+<div id="output"></div>
+<div id="battOutput"></div>
+<script>
+    function update () {
+        let dateObj = new Date()
+        let date = dateObj.toDateString()
+        let time = dateObj.toLocaleTimeString()
+		let online = navigator.onLine ? "Online" : "Offline"
+        output.innerText = date + "\n" + time + "\n" + online
+    }
+    function waitStart () {
+        let second = new Date().getSeconds()
+        let loop = setInterval(function () {
+            if (new Date().getSeconds() != second) {
+                clearInterval(loop)
+                setInterval(update, 1000)
+                setTimeout(() => clearInterval(updateLoop), 1000)
+            }
+        })
+    }
+    let updateLoop = setInterval(update, 1000)
+    update()
+    waitStart()
+    
+    let battery
+    (async function () {
+        battery = await navigator.getBattery()
+        battery.onlevelchange = updateBatt
+    })()
+    function updateBatt () {
+        let charge = Math.round(battery.level * 100)
+        battOutput.innerText = charge + "% Battery"
+    }
+    setTimeout(updateBatt, 100)
+</script>
