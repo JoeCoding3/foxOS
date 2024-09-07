@@ -1,10 +1,19 @@
-create builder (like beaveros?)
 fix broken apps (were meant to be built into beaveros):
-    textedit: fileutil
-    hexedit: fileutil
-    imgedit: fileutil
-    filesys: fileutil
-    camera: can't test on pc (no camera)
-make apps better
+    apps:
+        imgedit: fileutil
+        filesys: fileutil
+        camera: can't test on pc (no camera)
+    other:
+        fix using fileutil (different function names/parameters than apps expect):
+            fileutil.file.download.handle
+        fix fileutil/idb import:
+            <script src="../../js/lib/idb.js"></script>
+            <script src="../../js/lib/fileutil.js"></script>
+        fix using idb to transfer data from filesys to editor (opening file)
+make apps better:
+    finish apps:
+        camera
+        imgedit
+create builder (like beaveros?)
 
 try on chromebook

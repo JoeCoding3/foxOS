@@ -29,7 +29,8 @@
 <button onclick="createFile()">Create file</button>
 <div id="currentFile"></div>
 <br><textarea id="textarea" spellcheck="false"></textarea>
-<script src="../libs/fileutil.js"></script>
+<script src="../../js/lib/idb.js"></script>
+<script src="../../js/lib/fileutil.js"></script>
 <script>
     let file
     let saveState = ""
@@ -41,7 +42,7 @@
         }
     }
     async function createFile () {
-        file = await fileutil.file.download.handle("file.txt")
+        file = await fileutil.file.download.handle("file", "txt")
         currentFile.innerText = file.data.name
         textarea.value = ""
         textarea.style.display = "block"
