@@ -190,16 +190,19 @@ let fileutil = {
                     let out = []
                     let recHandles = []
                     for await (let entry of list) {
-                        try {
-                            let arr = await fileutil.file.get(null, null, entry)
-                            out.push(arr[0])
-                            continue
-                        } catch (err) {}
-                        try {
-                            let item = await fileutil.folder.get(null, entry)
-                            recHandles.push(item)
-                            out.push(item)
-                        } catch (err) {}
+                        if (entry.kind == "file") {
+                            try {
+                                let arr = await fileutil.file.get(null, null, entry)
+                                out.push(arr[0])
+                                continue
+                            } catch (err) {}
+                        } else if (entry.kind == "directory") {
+                            try {
+                                let item = await fileutil.folder.get(null, entry)
+                                recHandles.push(item)
+                                out.push(item)
+                            } catch (err) {}
+                        }
                     }
                     if (recursive) {
                         let recFiles = []

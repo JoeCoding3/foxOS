@@ -1,10 +1,8 @@
 fix broken apps (were meant to be built into beaveros):
     apps:
-        filesys: ???
+        filesys: transferring data to editors with idb (also fix editors)
         camera: unfinished, can't test on pc (no camera)
         imgedit: unfinished
-    other:
-        fix using idb to transfer data from filesys to editors (opening file)
 
 create builder (like beaveros?)
 try on chromebook
