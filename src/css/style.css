@@ -28,6 +28,9 @@ img:not(#bgImg) {
     background-color: lightgray;
 }
 
+body.hide > img:not(#bgImg) {
+    border: 2px solid transparent !important;
+}
 img.sec0 {
     border: 2px solid darkviolet;
 }

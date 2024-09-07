@@ -1,6 +1,8 @@
 function init () {
-    registerAllApps()
     setupImgs()
+
+    registerAllApps()
+    hideElems = document.querySelectorAll("img.hide")
     setupHideToggle()
 }
 function setupImgs () {
@@ -11,13 +13,16 @@ function setupImgs () {
     }
 }
 let hide = false
-let hideElems = document.querySelectorAll("img.hide")
+let hideElems = null
+console.log(hideElems)
 function setupHideToggle () {
     function toggleHidden () {
         for (let elem of hideElems) {
             if (hide) elem.style.display = "block"
             else elem.style.display = "none"
         }
+        if (hide) document.body.className = ""
+        else document.body.className = "hide"
         hide = !hide
     }
     toggleHidden()

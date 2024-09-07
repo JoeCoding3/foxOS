@@ -15,7 +15,7 @@ function registerApp (name = "", posX = 0, posY = 0, ab = true, hidden = false, 
 
 function registerAllApps () {
     registerApp("chrome",       0,  0, false, false, 3, "https://www.google.com/?safe=active&ssui=on")
-    registerApp("chrome2",      1,  0, true,  false, 1, "https://www.google.com/?safe=active&ssui=on&igu=1")
+    registerApp("chrome2",      1,  0, true,  true,  1, "https://www.google.com/?safe=active&ssui=on&igu=1")
     
     registerApp("gmail",        0,  1, false, false, 3, "https://mail.google.com/mail/u/0/#inbox")
     registerApp("drive",        1,  1, false, false, 3, "https://drive.google.com/drive/my-drive")
@@ -29,8 +29,8 @@ function registerAllApps () {
     registerApp("camera",       0,  4, true,  false, 0, "")
     registerApp("imgedit",      1,  4, true,  false, 0, "")
     
-    registerApp("mc",           0,  5, true,  false, 0, "")
-    registerApp("dino",         1,  5, true,  false, 0, "")
+    registerApp("mc",           0,  5, true,  true,  0, "")
+    registerApp("dino",         1,  5, true,  true,  0, "")
 
     
     registerApp("clock",       -1,  0, true,  false, 0, "")
