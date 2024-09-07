@@ -14,7 +14,6 @@ function setupImgs () {
 }
 let hide = false
 let hideElems = null
-console.log(hideElems)
 function setupHideToggle () {
     function toggleHidden () {
         for (let elem of hideElems) {

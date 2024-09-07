@@ -1,5 +1,10 @@
 create builder (like beaveros?)
-fix broken apps (were meant to be built into beaveros)
+fix broken apps (were meant to be built into beaveros):
+    textedit: fileutil
+    hexedit: fileutil
+    imgedit: fileutil
+    filesys: fileutil
+    camera: can't test on pc (no camera)
 make apps better
 
 try on chromebook
