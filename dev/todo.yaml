@@ -1,0 +1,31 @@
+require password on foxos file opened:
+    3 attempts
+    require fullscreen before loading
+    crash computer if incorrect
+when clicking app:
+    if holding shift:
+        open normally (not in about:blank)
+filesys:
+    allow copying and moving files and folders:
+        keyboard shortcut:
+            c for copy
+            m for move
+        confirms copy/move with text at far right of row
+    create special file picker:
+        other apps can use this instead of default built-in picker
+    find and allow ejecting of usb drives:
+        add row for each drive, with special usb icon
+        eject by middle-clicking
+textedit:
+    on close:
+        if unsaved:
+            use onbeforeunload event to prompt user
+    add codemirror for syntax highlighting:
+        use 'editor.setOption("mode", mode)' to change mode of editor
+camera:
+    add filters
+    add video:
+        include audio
+imgedit:
+    convert between images and data urls
+    display videos too
