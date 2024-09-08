@@ -1,3 +1,8 @@
+make all apps open normally (no about:blank):
+    add global variable
+    find way to open b64 string (filesys - opening html files)
+
+
 require password on foxos file opened:
     3 attempts
     require fullscreen before loading
