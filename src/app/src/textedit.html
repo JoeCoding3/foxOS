@@ -42,7 +42,7 @@
         }
     }
     async function createFile () {
-        file = await fileutil.file.download.handle("file", "txt")
+        file = await fileutil.file.download.handle("file", ["txt", "html", "css", "js"])
         currentFile.innerText = file.data.name
         textarea.value = ""
         textarea.style.display = "block"

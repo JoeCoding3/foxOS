@@ -1,7 +1,6 @@
 function init () {
-    setupImgs()
-
     registerAllApps()
+    setupImgs()
     hideElems = document.querySelectorAll("img.hide")
     setupHideToggle()
 }
