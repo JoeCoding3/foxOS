@@ -148,7 +148,7 @@
                     let win = open(undefined, "_blank", `popup,left=0,top=0,width=${screen.width},height=${screen.height}`)
                     win.document.write(content)
                 } else {
-                    await this.store("fxos_filesys_opentemp")
+                    await this.store("foxos_filesys_opentemp")
                     if (name.endsWith(".txt") || name.endsWith(".js") || name.endsWith(".css") || name.endsWith(".trashinfo")) open("./textedit.html")
                     else if (name.endsWith(".png") || name.endsWith(".jpg") || name.endsWith(".jpeg")) open("./imgedit.html")
                     else open("./hexedit.html")
