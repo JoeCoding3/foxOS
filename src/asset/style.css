@@ -29,7 +29,7 @@ img:not(#bgImg) {
 }
 
 body.hide > img:not(#bgImg) {
-    border: 2px solid transparent !important;
+    border: 2px solid darkviolet !important;
 }
 img.sec0 {
     border: 2px solid darkviolet;
