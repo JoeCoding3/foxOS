@@ -1,4 +1,4 @@
-make all apps open normally (no about:blank):
+make all apps (including main os) open normally (no about:blank):
     add global variable
     find way to open b64 string (filesys - opening html files)
 
