@@ -19,8 +19,6 @@ function setupHideToggle () {
             if (hide) elem.style.display = "block"
             else elem.style.display = "none"
         }
-        if (hide) document.body.className = ""
-        else document.body.className = "hide"
         hide = !hide
     }
     toggleHidden()
@@ -29,8 +27,10 @@ function setupHideToggle () {
     }
 }
 
-if (parent == window) {
-    let loc = location.href
-    loc = "." + loc.substring(loc.lastIndexOf("/"))
-    launch(loc, true, true)
-} else init()
+let url = new URL(location.href)
+let popup = url.searchParams.get("popup") == "true"
+if (popup) init()
+else {
+    launch("./foxOS.html?popup=true")
+    close()
+}

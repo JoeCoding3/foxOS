@@ -1,11 +1,11 @@
-function registerApp (name = "", posX = 0, posY = 0, ab = true, hidden = false, url = "") {
+function registerApp (name = "", posX = 0, posY = 0, hidden = false, url = "") {
     let img = document.createElement("img")
     img.src = `./app/icon/${name}.png`
     img.onclick = function () {
-        if (url != "") launch(url, ab)
-        else launch(`./app/src/${this.name}.html`, ab)
-    }.bind({name, ab, url})
-    img.className = `${hidden ? "hide " : ""}sec${ab ? 0 : 1}`
+        if (url != "") launch(this.url)
+        else launch(`./app/src/${this.name}.html`)
+    }.bind({name, url})
+    img.className = hidden ? "hide" : ""
     if (posX < 0) img.style.left = `${screen.width + (posX * 74) + 10}px`
     else img.style.left = `${(posX * 74) + 10}px`
     if (posY < 0) img.style.top = `${screen.height + (posY * 74) + 10}px`
@@ -14,34 +14,19 @@ function registerApp (name = "", posX = 0, posY = 0, ab = true, hidden = false, 
 }
 
 function registerAllApps () {
-    registerApp("chrome",       0,  0, false, false, "https://www.google.com/?safe=active&ssui=on")
-    registerApp("chrome2",      1,  0, true,  true,  "https://www.google.com/?safe=active&ssui=on&igu=1")
+    registerApp("filesys",      0,  0, false, "")
+    registerApp("textedit",     1,  0, false, "")
     
-    registerApp("gmail",        0,  1, false, false, "https://mail.google.com/mail/u/0/#inbox")
-    registerApp("drive",        1,  1, false, false, "https://drive.google.com/drive/my-drive")
+    registerApp("gmail",        0,  1, false, "https://mail.google.com/mail/u/0/#inbox")
+    registerApp("drive",        1,  1, false, "https://drive.google.com/drive/my-drive")
     
-    registerApp("blank",        0,  2, true,  false, "")
-    registerApp("terminal",     1,  2, true,  false, "")
+    registerApp("grades",       0,  2, false, "https://wa-nor-psv.edupoint.com/PXP2_Login_Student.aspx?regenerateSessionId=True")
+    registerApp("schoology",    1,  2, false, "https://nsd.schoology.com/home")
 
-    registerApp("textedit",     0,  3, false, false, "")
-    registerApp("hexedit",      1,  3, false, false, "")
-    
-    registerApp("camera",       0,  4, true,  false, "")
-    registerApp("imgedit",      1,  4, false, false, "")
-    
-    registerApp("mc",           0,  5, false, true,  "")
-    registerApp("dino",         1,  5, true,  true,  "")
+    registerApp("desmos",       0,  3, false, "https://student.desmos.com/")
+    registerApp("textbook",     1,  3, false, "https://reader.savvasrealize.com/book/8S86CIR2XC/view/single/page/1")
 
     
-    registerApp("clock",       -1,  0, true,  false, "")
-    registerApp("filesys",     -1,  1, false, false, "")
-    registerApp("screensaver", -1,  2, true,  false, "")
-
-    
-    registerApp("clever",       0, -1, false, false, "https://clever.com/in/northshore/student/portal")
-    registerApp("grades",       1, -1, false, false, "https://wa-nor-psv.edupoint.com/PXP2_Login_Student.aspx?regenerateSessionId=True")
-    registerApp("schoology",    2, -1, false, false, "https://nsd.schoology.com/home")
-    
-
-    registerApp("desmos",      -1, -1, false, false, "https://student.desmos.com/")
+    registerApp("mc",           0,  4, true,  "")
+    registerApp("dino",         1,  4, true,  "")
 }

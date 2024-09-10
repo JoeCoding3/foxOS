@@ -26,14 +26,8 @@ img:not(#bgImg) {
     cursor: pointer;
     border-radius: 5px;
     background-color: lightgray;
-}
-
-body.hide > img:not(#bgImg) {
-    border: 2px solid darkviolet !important;
-}
-img.sec0 {
     border: 2px solid darkviolet;
 }
-img.sec1 {
-    border: 2px solid orange;
+img:not(#bgImg).hide {
+    border: 2px solid orange !important;
 }

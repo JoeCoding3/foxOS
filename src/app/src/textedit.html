@@ -24,7 +24,7 @@
         display: inline-block;
     }
 </style>
-<button onclick="openFile()">Open file</button>
+<button onclick="openFile()" autofocus>Open file</button>
 <button id="saveBtn" onclick="saveFile()" disabled>Save file</button>
 <button onclick="createFile()">Create file</button>
 <div id="currentFile"></div>
@@ -40,6 +40,9 @@
             openFile(storedHandle)
             await fileutil.file.storage.remove("foxos_filesys_opentemp")
         }
+    }
+    onbeforeunload = function () {
+        return !saveBtn.disabled
     }
     async function createFile () {
         file = await fileutil.file.download.handle("file", ["txt", "html", "css", "js"])

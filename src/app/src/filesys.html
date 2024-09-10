@@ -31,7 +31,7 @@
     }
 </style>
 <div class="row" id="sysDiv">
-    <button id="button" onclick="run()"></button>
+    <button id="button" onclick="run()" autofocus></button>
     <button id="changeBtn" onclick="changeFolder()">Change file system folder</button>
     <button id="refreshBtn" onclick="refresh()">Refresh</button>
 </div>
@@ -143,14 +143,8 @@
         row.innerHTML = (type == "file" ? "&#128462" : "&#128448") + " " + name
         if (type == "file") {
             row.onclick = async function () {
-                let name = this.data.name
-                if (name.endsWith(".html")) launch(`b64${btoa(await this.read())}`)
-                else {
-                    await this.store("foxos_filesys_opentemp")
-                    if (name.endsWith(".txt") || name.endsWith(".js") || name.endsWith(".css")) launch("./textedit.html", false)
-                    else if (name.endsWith(".png") || name.endsWith(".jpg") || name.endsWith(".jpeg")) launch("./imgedit.html", false)
-                    else launch("./hexedit.html", false)
-                }
+                await this.store("foxos_filesys_opentemp")
+                launch("./textedit.html", false)
             }.bind(opt.obj)
             row.onmousedown = async function (ev) {
                 if (ev.button != 1 || !confirm("Delete file '" + this.obj.data.name + "'?")) return
