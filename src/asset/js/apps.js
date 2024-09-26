@@ -14,9 +14,6 @@ function registerApp (name = "", posX = 0, posY = 0, hidden = false, url = "") {
 }
 
 function registerAllApps () {
-    registerApp("filesys",      0,  0, false, "")
-    registerApp("textedit",     1,  0, false, "")
-    
     registerApp("gmail",        0,  1, false, "https://mail.google.com/mail/u/0/#inbox")
     registerApp("drive",        1,  1, false, "https://drive.google.com/drive/my-drive")
     
