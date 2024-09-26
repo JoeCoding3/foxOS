@@ -28,6 +28,3 @@ img:not(#bgImg) {
     background-color: lightgray;
     border: 2px solid darkviolet;
 }
-img:not(#bgImg).hide {
-    border: 2px solid orange !important;
-}

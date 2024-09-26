@@ -1,35 +1,34 @@
-function registerApp (name = "", posX = 0, posY = 0, hidden = false, url = "") {
+function registerApp (name = "", posX = 0, posY = 0, url = "") {
     let img = document.createElement("img")
-    img.src = `./app/icon/${name}.png`
-    img.onclick = function () {
-        if (url != "") launch(this.url)
-        else launch(`./app/src/${this.name}.html`)
-    }.bind({name, url})
-    img.className = hidden ? "hide" : ""
+    img.src = `./asset/icon/${name}.png`
+    img.onclick = function () { launch(this) }.bind(url)
+
     if (posX < 0) img.style.left = `${screen.width + (posX * 74) + 10}px`
     else img.style.left = `${(posX * 74) + 10}px`
     if (posY < 0) img.style.top = `${screen.height + (posY * 74) + 10}px`
     else img.style.top = `${(posY * 74) + 10}px`
+    
     document.body.append(img)
 }
 
 function registerAllApps () {
-    registerApp("gmail",        0,  0, false, "https://mail.google.com/mail/u/0/#inbox")
-    registerApp("drive",        1,  0, false, "https://drive.google.com/drive/my-drive")
+    registerApp("gmail",        0,  0, "https://mail.google.com/mail/u/0/#inbox")
+    registerApp("drive",        1,  0, "https://drive.google.com/drive/my-drive")
     
-    registerApp("grades",       0,  1, false, "https://wa-nor-psv.edupoint.com/PXP2_Login_Student.aspx?regenerateSessionId=True")
-    registerApp("schoology",    1,  1, false, "https://nsd.schoology.com/home")
+    registerApp("grades",       0,  1, "https://wa-nor-psv.edupoint.com/PXP2_Login_Student.aspx?regenerateSessionId=True")
+    registerApp("schoology",    1,  1, "https://nsd.schoology.com/home")
 
-    registerApp("desmos",       0,  2, false, "https://student.desmos.com/")
-    registerApp("textbook",     1,  2, false, "https://reader.savvasrealize.com/book/8S86CIR2XC/view/single/page/1")
+    registerApp("desmos",       0,  2, "https://student.desmos.com/")
+    registerApp("textbook",     1,  2, "https://reader.savvasrealize.com/book/8S86CIR2XC/view/single/page/1")
     
-    registerApp("welnet",       0,  3, false, "https://clever.com/oauth/authorize?channel=clever-portal&client_id=c968423122e865b5cdd3&confirmed=true&district_id=5b7b3a1da47b2e0001fba6ac&redirect_uri=https%3A%2F%2Fwww.focusedfitness.net%2FWELNET%2Fssoclevergateway.php&response_type=code")
-    registerApp("noodletools",  1,  3, false, "https://my.noodletools.com/logon/signin?domain=apps.nsd.org")
+    registerApp("welnet",       0,  3, "https://clever.com/oauth/authorize?channel=clever-portal&client_id=c968423122e865b5cdd3&confirmed=true&district_id=5b7b3a1da47b2e0001fba6ac&redirect_uri=https%3A%2F%2Fwww.focusedfitness.net%2FWELNET%2Fssoclevergateway.php&response_type=code")
+    registerApp("noodletools",  1,  3, "https://my.noodletools.com/logon/signin?domain=apps.nsd.org")
 
-    registerApp("britannica",   0,  4, false, "https://go.openathens.net/redirector/kcls.org?url=https%3A%2F%2Flibrary.eb.com")
-    registerApp("worldbook",    1,  4, false, "https://worldbookonline.com/advanced/home")
+    registerApp("britannica",   0,  4, "https://go.openathens.net/redirector/kcls.org?url=https%3A%2F%2Flibrary.eb.com")
+    registerApp("worldbook",    1,  4, "https://worldbookonline.com/advanced/home")
+}
 
-    
-    registerApp("mc",           0,  5, true,  "")
-    registerApp("dino",         1,  5, true,  "")
+function launch (path = "") {
+    let optsStr = `popup,left=0,top=0,width=${screen.width},height=${screen.height}`
+    open(path, "_blank", optsStr)
 }
