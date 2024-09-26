@@ -15,14 +15,14 @@ function registerAllApps () {
     registerApp("gmail",        0,  0, "https://mail.google.com/mail/u/0/#inbox")
     registerApp("drive",        1,  0, "https://drive.google.com/drive/my-drive")
     
-    registerApp("grades",       0,  1, "https://wa-nor-psv.edupoint.com/PXP2_Login_Student.aspx?regenerateSessionId=True")
+    registerApp("studentvue",   0,  1, "https://wa-nor-psv.edupoint.com/PXP2_Login_Student.aspx?regenerateSessionId=True")
     registerApp("schoology",    1,  1, "https://nsd.schoology.com/home")
 
 
     registerApp("welnet",      -1,  1, "https://clever.com/oauth/authorize?channel=clever-portal&client_id=c968423122e865b5cdd3&confirmed=true&district_id=5b7b3a1da47b2e0001fba6ac&redirect_uri=https%3A%2F%2Fwww.focusedfitness.net%2FWELNET%2Fssoclevergateway.php&response_type=code")
 
     registerApp("desmos",      -2,  3, "https://student.desmos.com/")
-    registerApp("textbook",    -1,  3, "https://reader.savvasrealize.com/book/8S86CIR2XC/view/single/page/1")
+    registerApp("savvas",      -1,  3, "https://reader.savvasrealize.com/book/8S86CIR2XC/view/single/page/1")
 
     registerApp("noodletools", -4,  4, "https://my.noodletools.com/logon/signin?domain=apps.nsd.org")
     registerApp("britannica",  -3,  4, "https://go.openathens.net/redirector/kcls.org?url=https%3A%2F%2Flibrary.eb.com")
