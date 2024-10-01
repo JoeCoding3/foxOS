@@ -28,6 +28,9 @@ function registerAllApps () {
     registerApp("britannica",  -3,  4, "https://go.openathens.net/redirector/kcls.org?url=https%3A%2F%2Flibrary.eb.com")
     registerApp("worldbook",   -2,  4, "https://worldbookonline.com/advanced/home")
     registerApp("gale",        -1,  4, "https://docs.google.com/spreadsheets/d/1tAIgDD0Gl67UFSy_EOz4No71He2-O0AJeCHYowO2s7Q/edit?usp=sharing")
+
+    registerApp("sora",        -2,  7, "https://soraapp.com/library/northshoresdwa")
+    registerApp("follett",     -1,  7, "https://clever.com/oauth/authorize?channel=clever-portal&client_id=f3c1e3b9d9815e1d59ac&confirmed=true&district_id=5b7b3a1da47b2e0001fba6ac&redirect_uri=https%3A%2F%2Fsecurity.follettsoftware.com%2Faasp%2Fservice%2Fsso%2FidpValidate%2FClever&response_type=code")
 }
 
 function launch (path = "") {
