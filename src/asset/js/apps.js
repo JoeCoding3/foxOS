@@ -39,6 +39,6 @@ function registerAllApps () {
 }
 
 function launch (path = "") {
-    let optsStr = `popup,left=0,top=0,width=${screen.width},height=${screen.height}`
+    let optsStr = `popup,left=0,top=0,width=${screen.width},height=${screen.height},noopener,noreferrer`
     open(path, "_blank", optsStr)
 }
