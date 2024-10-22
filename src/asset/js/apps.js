@@ -32,9 +32,10 @@ function registerAllApps () {
     registerApp("sora",        -2,  7, "https://soraapp.com/library/northshoresdwa")
     registerApp("follett",     -1,  7, "https://clever.com/oauth/authorize?channel=clever-portal&client_id=f3c1e3b9d9815e1d59ac&confirmed=true&district_id=5b7b3a1da47b2e0001fba6ac&redirect_uri=https%3A%2F%2Fsecurity.follettsoftware.com%2Faasp%2Fservice%2Fsso%2FidpValidate%2FClever&response_type=code")
 
-    registerApp("blooket",     -3,  8, "https://play.blooket.com/play")
-    registerApp("kahoot",      -2,  8, "https://kahoot.it/")
-    registerApp("quizlet",     -1,  8, "https://quizlet.com/latest")
+    registerApp("blooket",     -4,  8, "https://play.blooket.com/play")
+    registerApp("kahoot",      -3,  8, "https://kahoot.it/")
+    registerApp("quizlet",     -2,  8, "https://quizlet.com/latest")
+    registerApp("menti",       -1,  8, "https://www.menti.com/")
 }
 
 function launch (path = "") {
