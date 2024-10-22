@@ -36,6 +36,8 @@ function registerAllApps () {
     registerApp("kahoot",      -3,  8, "https://kahoot.it/")
     registerApp("quizlet",     -2,  8, "https://quizlet.com/latest")
     registerApp("menti",       -1,  8, "https://www.menti.com/")
+
+    registerApp("panorama",    -1,  9, "https://surveys.panoramaed.com/northshorewa")
 }
 
 function launch (path = "") {
