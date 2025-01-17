@@ -21,6 +21,8 @@ function registerAllApps () {
 
     registerApp("welnet",      -1,  1, "https://clever.com/oauth/authorize?channel=clever-portal&client_id=c968423122e865b5cdd3&confirmed=true&district_id=5b7b3a1da47b2e0001fba6ac&redirect_uri=https%3A%2F%2Fwww.focusedfitness.net%2FWELNET%2Fssoclevergateway.php&response_type=code")
 
+    registerApp("commonlit",   -1,  2, "https://www.commonlit.org/en/students/student_lessons")
+
     registerApp("desmos",      -2,  3, "https://student.desmos.com/")
     registerApp("savvas",      -1,  3, "https://reader.savvasrealize.com/book/8S86CIR2XC/view/single/page/1")
 
