@@ -1,7 +1,11 @@
+function launch (path = "") {
+    let optsStr = `popup,left=0,top=0,width=${screen.width},height=${screen.height}`
+    return open(path, "_blank", optsStr)
+}
 function registerApp (name = "", posX = 0, posY = 0, url = "") {
     let img = document.createElement("img")
-    img.src = `./asset/icon/${name}.png`
-    img.onclick = function () { launch(this) }.bind(url)
+    img.src = `./res/icn/${name}.png`
+    img.onclick = function () {launch(this)}.bind(url)
 
     if (posX < 0) img.style.left = `${screen.width + (posX * 74) + 10}px`
     else img.style.left = `${(posX * 74) + 10}px`
@@ -10,7 +14,6 @@ function registerApp (name = "", posX = 0, posY = 0, url = "") {
     
     document.body.append(img)
 }
-
 function registerAllApps () {
     registerApp("gmail",        0,  0, "https://mail.google.com/mail/u/0/#inbox")
     registerApp("drive",        1,  0, "https://drive.google.com/drive/my-drive")
@@ -38,9 +41,4 @@ function registerAllApps () {
     registerApp("menti",       -1,  8, "https://www.menti.com/")
 
     registerApp("panorama",    -1,  9, "https://surveys.panoramaed.com/northshorewa")
-}
-
-function launch (path = "") {
-    let optsStr = `popup,left=0,top=0,width=${screen.width},height=${screen.height},noopener,noreferrer`
-    open(path, "_blank", optsStr)
 }
